@@ -19,5 +19,14 @@ class ProcessJobs:
         }
         return list(job_types)
 
-    def filter_by_multiple_criteria(self) -> List[dict]:
-        pass
+    def filter_by_multiple_criteria(self, jobs, criteria) -> List[dict]:
+        if not isinstance(criteria, dict):
+            raise TypeError("O parâmetro 'criteria' deve ser um dicionário.")
+
+        filtered_jobs = []
+
+        for job in jobs:
+            if all(job.get(key) == value for key, value in criteria.items()):
+                filtered_jobs.append(job)
+
+        return filtered_jobs
